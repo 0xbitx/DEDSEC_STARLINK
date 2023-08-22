@@ -132,19 +132,22 @@ def check_location():
     print(tabulate([['GOOGLE MAP',google_maps_link]], tablefmt='fancy_grid'))
 
 def starlink_stow():
-    os.system('./dedsec -plaintext -d {\"dish_stow\":{}} 192.168.100.1:9200 SpaceX.API.Device.Device/Handle > /dev/null 2>&1')
+    command: str = r'./dedsec -plaintext -d {\"dish_stow\":{}} 192.168.100.1:9200 SpaceX.API.Device.Device/Handle > /dev/null 2>&1'
+    os.system(command)
     print(tabulate([['DISH STATUS','STOW']], tablefmt='fancy_grid'))
     input(' PRESS ENTER TO EXIT')
     return main()
 
 def starlink_untow():
-    os.system('./dedsec -plaintext -d {\"dish_stow\":{\"unstow\":true}} 192.168.100.1:9200 SpaceX.API.Device.Device/Handle > /dev/null 2>&1')
+    command: str = r'./dedsec -plaintext -d {\"dish_stow\":{\"unstow\":true}} 192.168.100.1:9200 SpaceX.API.Device.Device/Handle > /dev/null 2>&1'
+    os.system(command)
     print(tabulate([['DISH STATUS','UNTOW']], tablefmt='fancy_grid'))
     input(' PRESS ENTER TO EXIT')
     return main()
 
 def starlink_reboot():
-    os.system('./dedsec -plaintext -d {\"reboot\":{}} 192.168.100.1:9200 SpaceX.API.Device.Device/Handle > /dev/null 2>&1')
+    command: str = r'./dedsec -plaintext -d {\"reboot\":{}} 192.168.100.1:9200 SpaceX.API.Device.Device/Handle > /dev/null 2>&1'
+    os.system(command)
     print(tabulate([['DISH STATUS','REBOOTED']], tablefmt='fancy_grid'))
     input(' PRESS ENTER TO EXIT')
     return main()
