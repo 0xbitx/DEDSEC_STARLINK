@@ -2,6 +2,14 @@
 import os, sys
 from tabulate import tabulate
 import re
+from pystyle import *
+
+dark = Col.dark_gray
+light = Colors.StaticMIX((Col.cyan, Col.purple, Col.gray))
+acc = Colors.StaticMIX((Col.cyan, Col.purple, Col.blue, Col.gray))
+purple = Colors.StaticMIX((Col.purple, Col.blue))
+bpurple = Colors.StaticMIX((Col.purple, Col.cyan))
+
 green_checkmark = "\033[32m✔\033[0m"
 red_x = "\033[31m✘\033[0m"  
 
@@ -153,54 +161,76 @@ def starlink_reboot():
     return main()
 
 def banner():
-    print('''
-                     .       .                   .       .      .     .      .
+    def p(text):
+    # sleep(0.05)
+        return print(stage(text))
 
-          .    .         .    .            .     ______
 
-      .           .             .               ////////
+    def stage(text: str, symbol: str = '...', col1=light, col2=None) -> str:
+        if col2 is None:
+            col2 = light if symbol == '...' else purple
+        if symbol in {'...', '!!!'}:
+            return f"""     {Col.Symbol(symbol, col1, dark)} {col2}{text}{Col.reset}"""
+        else:
+            return f""" {Col.Symbol(symbol, col1, dark)} {col2}{text}{Col.reset}"""
 
-                .    .   ________   .  .      /////////     .    .
 
-           .            |.____.  /\        ./////////    .
+    text = r"""
 
-    .                 .//      \/  |\     /////////
+                        .       .                   .       .      .     .      .
 
-       .       .    .//          \ |  \ /////////       .     .   .
+            .    .         .    .            .     ______
 
-                    ||.    .    .| |  ///////// .     .
+        .           .             .               ////////
 
-     .    .         ||           | |//`,/////                .
+                    .    .   ________   .  .      /////////     .    .
 
-             .       \\        ./ //  /  \/   .
+            .            |.____.  /\        ./////////    .
 
-  .                    \\.___./ //\` '   ,_\     .     .
+        .                 .//      \/  |\     /////////
 
-          .           .     \ //////\ , /   \                 .    .
+        .       .    .//          \ |  \ /////////       .     .   .
 
-                       .    ///////// \|  '  |    .
+                        ||.    .    .| |  ///////// .     .
 
-      .        .          ///////// .   \ _ /          .
+        .    .         ||           | |//`,/////                .
 
-                        /////////                              .
+                .       \\        ./ //  /  \/   .
 
-                 .   ./////////     .     .
+    .                    \\.___./ //\` '   ,_\     .     .
 
-         .           --------   .                  ..             .
+            .           .     \ //////\ , /   \                 .    .
 
-                        STARLINK MONITORING TOOL
-                             CODED BY: 0XBIT
-          
-        [01] STATUS                                [04] STOW
-        [02] ALERT STATUS                          [05] UNSTOW
-        [03] LOCATION                              [06] REBOOT
-          
-        [00] EXIT
-''')
+                        .    ///////// \|  '  |    .
+
+        .        .          ///////// .   \ _ /          .
+
+                            /////////                              .
+
+                    .   ./////////     .     .
+
+            .           --------   .                  ..             .
+
+
+    """
+
+    text1 = '''                       STARLINK MONITORING TOOL
+                                CODED BY: 0XBIT
+                
+                    
+            [01] STATUS                                [04] STOW
+            [02] ALERT STATUS                          [05] UNSTOW
+            [03] LOCATION                              [06] REBOOT
+            
+            [00] EXIT'''
+
+    print(Colorate.Diagonal(Colors.DynamicMIX((purple, dark)), (text)))
+    print(((purple)), (text1))
+
 def main():
     os.system('clear')
     banner()
-    select: int = input('        STARLINK: ')
+    select: int = input('\n\t    STARLINK: ')
     if select in ['01', '1']:
         check_status()
         input(' PRESS ENTER TO EXIT')
