@@ -3,18 +3,19 @@ import os, sys
 from tabulate import tabulate
 import re
 from pystyle import *
+import subprocess
 
 dark = Col.dark_gray
 light = Colors.StaticMIX((Col.cyan, Col.purple, Col.gray))
 acc = Colors.StaticMIX((Col.cyan, Col.purple, Col.blue, Col.gray))
-purple = Colors.StaticMIX((Col.purple, Col.blue))
+purple = Colors.StaticMIX((Col.white, Col.green))
 bpurple = Colors.StaticMIX((Col.purple, Col.cyan))
 
 green_checkmark = "\033[32m✔\033[0m"
 red_x = "\033[31m✘\033[0m"  
 
 def check_alert_status():
-    os.system('python3 com.py -v alert_detail > .data.txt')
+    subprocess.run(["python3", "com.py", "-v", "alert_detail", ">", ".data.txt"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     input_filename = '.data.txt'
     output_filename = '.data.txt'
 
@@ -28,7 +29,7 @@ def check_alert_status():
 
     with open('.data.txt', 'r') as f:
         lines = f.readlines()
-
+    data = None
     data = []
     for line in lines:
         splitter = line.split()
@@ -40,7 +41,7 @@ def check_alert_status():
     print(tabulate(data, headers=['Name', ''], tablefmt='fancy_grid'))
 
 def check_status():
-    os.system('python3 com.py -v status > .data_status.txt')
+    subprocess.run(["python3", "com.py", "-v", "status", ">", ".data_status.txt"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     input_filename = '.data_status.txt'
     output_filename = '.data_status.txt'
 
@@ -68,7 +69,7 @@ def check_status():
     print(tabulate(data, headers=['Name', 'Status'], tablefmt='fancy_grid'))
 
 def check_ob():
-    os.system('python3 com.py -v obstruction_detail > .data_ob.txt')
+    subprocess.run(["python3", "com.py", "-v", "obstruction_detail", ">", ".data_ob.txt"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     input_filename = '.data_ob.txt'
     output_filename = '.data_ob.txt'
 
@@ -95,7 +96,7 @@ def check_ob():
     print(tabulate(data, headers=['Name', 'Status'], tablefmt='fancy_grid'))
 
 def check_location():
-    os.system('python3 com.py -v location > .data_loc.txt')
+    subprocess.run(["python3", "com.py", "-v", "location", ">", ".data_loc.txt"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     input_filename = '.data_loc.txt'
     output_filename = '.data_loc.txt'
 
@@ -162,7 +163,6 @@ def starlink_reboot():
 
 def banner():
     def p(text):
-    # sleep(0.05)
         return print(stage(text))
 
 
@@ -176,87 +176,71 @@ def banner():
 
 
     text = r"""
-
-            .       .                   .       .      .     .      .
-
-                .    .         .    .            .     ______
-
-          .           .             .               ////////
-
-                    .    .   ________   .  .      /////////     .    .
-
-               .            |.____.  /\        ./////////    .
-
-        .                 .//      \/  |\     /////////
-
-          .       .    .//          \ |  \ /////////       .     .   .
-
-                       ||.    .    .| |  ///////// .     .
-
-        .    .         ||           | |//`,/////                .
-
-                .       \\        ./ //  /  \/   .
-
-    .                    \\.___./ //\` '   ,_\     .     .
-
-            .           .     \ //////\ , /   \                 .    .
-
-                         .    ///////// \|  '  |    .
-
-        .        .          ///////// .   \ _ /          .
-
-                          /////////                              .
-
-                   .   ./////////     .     .
-
-            .           --------   .                  ..             .
-
-
+                                                        
+                                                           +          
+                                                    +
+                                          +    +
+                                   +     +
+                              +      +
+   + + + + +              +     +
+     +        +       +     +                         +-------+
+        +       + +      +                            |       |
+           +   +      +                               |  ._.  |
+             +      + +                               |       |
+         +      +        +                            |       |
+      +       +    +        +                         |       |
+    +       +         +        +                      +-------+
+   + + + + +             + + + + +                   /_________\ 0xbit
+-------------------------------------------------------------------------
     """
 
     text1 = '''                       STARLINK MONITORING TOOL
                             CODED BY: 0XBIT
                 
                     
-            [01] STATUS                                [04] STOW
-            [02] ALERT STATUS                          [05] UNSTOW
-            [03] LOCATION                              [06] REBOOT
+        [01] STATUS                                [04] STOW
+        [02] ALERT STATUS                          [05] UNSTOW
+        [03] LOCATION                              [06] REBOOT
             
-            [00] EXIT'''
+        [00] EXIT'''
 
     print(Colorate.Diagonal(Colors.DynamicMIX((purple, dark)), (text)))
     print(((purple)), (text1))
 
 def main():
-    os.system('clear')
-    banner()
-    select: int = input('\n\t    STARLINK: ')
-    if select in ['01', '1']:
-        check_status()
-        input(' PRESS ENTER TO EXIT')
-        return main()
-    elif select in ['02','2']:
-        check_alert_status()
-        input(' PRESS ENTER TO EXIT')
-        return main()
-    elif select in ['03', '3']:
-        check_location()
-        input(' PRESS ENTER TO EXIT')
-        return main()
-    elif select in ['04', '4']:
-        starlink_stow()
-        input(' PRESS ENTER TO EXIT')
-        return main()
-    elif select in ['05', '5']:
-        starlink_untow()
-        input(' PRESS ENTER TO EXIT')
-        return main()
-    elif select in ['06', '6']:
-        starlink_reboot()
-        input(' PRESS ENTER TO EXIT')
-        return main()
-    elif select in ['00', '0']:
-        sys.exit('        BYE BYE! ')
+    try:
+        os.system('clear')
+        banner()
+        select: int = input('\n\tSTARLINK: ')
+        if select in ['01', '1']:
+            check_status()
+            input(' PRESS ENTER TO EXIT')
+            return main()
+        elif select in ['02','2']:
+            check_alert_status()
+            input(' PRESS ENTER TO EXIT')
+            return main()
+        elif select in ['03', '3']:
+            check_location()
+            input(' PRESS ENTER TO EXIT')
+            return main()
+        elif select in ['04', '4']:
+            starlink_stow()
+            input(' PRESS ENTER TO EXIT')
+            return main()
+        elif select in ['05', '5']:
+            starlink_untow()
+            input(' PRESS ENTER TO EXIT')
+            return main()
+        elif select in ['06', '6']:
+            starlink_reboot()
+            input(' PRESS ENTER TO EXIT')
+            return main()
+        elif select in ['00', '0']:
+
+            sys.exit('\n\tBYE BYE! ')
+    except KeyboardInterrupt:
+        sys.exit('\n\tBYE BYE!')
 
 if __name__ == '__main__':
     main()
