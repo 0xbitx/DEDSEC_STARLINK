@@ -1,3 +1,8 @@
+
+<p align="center">
+<img src="starlink.png", width="500", height="500">
+</p>
+
 <h1 align="center"> DEDSEC_STARLINK </h1>
 <h4 align="center">Dedsec-Starlink is a Terminal-Based Starlink Router Management and monitoring tool using Starlink API</h4>
 <img src="banner.png" width="100%"/>
