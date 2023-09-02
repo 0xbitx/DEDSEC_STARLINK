@@ -6,10 +6,7 @@ from pystyle import *
 import subprocess
 
 dark = Col.dark_gray
-light = Colors.StaticMIX((Col.cyan, Col.purple, Col.gray))
-acc = Colors.StaticMIX((Col.cyan, Col.purple, Col.blue, Col.gray))
-purple = Colors.StaticMIX((Col.white, Col.green))
-bpurple = Colors.StaticMIX((Col.purple, Col.cyan))
+green = Colors.StaticMIX((Col.white, Col.green))
 
 green_checkmark = "\033[32m✔\033[0m"
 red_x = "\033[31m✘\033[0m"  
@@ -162,19 +159,6 @@ def starlink_reboot():
     return main()
 
 def banner():
-    def p(text):
-        return print(stage(text))
-
-
-    def stage(text: str, symbol: str = '...', col1=light, col2=None) -> str:
-        if col2 is None:
-            col2 = light if symbol == '...' else purple
-        if symbol in {'...', '!!!'}:
-            return f"""     {Col.Symbol(symbol, col1, dark)} {col2}{text}{Col.reset}"""
-        else:
-            return f""" {Col.Symbol(symbol, col1, dark)} {col2}{text}{Col.reset}"""
-
-
     text = r"""
                                                         
                                                            +          
@@ -204,8 +188,8 @@ def banner():
             
         [00] EXIT'''
 
-    print(Colorate.Diagonal(Colors.DynamicMIX((purple, dark)), (text)))
-    print(((purple)), (text1))
+    print(Colorate.Diagonal(Colors.DynamicMIX((green, dark)), (text)))
+    print(((green)), (text1))
 
 def main():
     try:
