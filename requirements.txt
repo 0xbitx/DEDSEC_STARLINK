@@ -8,3 +8,5 @@ influxdb_client>=1.23.0
 pypng>=0.0.20
 typing-extensions>=4.3.0
 pystyle
+pycryptodome
+tabulate
