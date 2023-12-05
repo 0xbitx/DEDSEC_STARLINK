@@ -29,7 +29,7 @@
 * git clone https://github.com/0xbitx/DEDSEC_STARLINK.git
 * cd DEDSEC_STARLINK
 * pip install --upgrade -r requirements.txt
-* python3 dedsec_starlink.py
+* ./dedsec_starlink
 
 ### TESTED ON FOLLOWING:-
 * Kali Linux 
