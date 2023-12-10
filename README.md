@@ -29,6 +29,7 @@
 * git clone https://github.com/0xbitx/DEDSEC_STARLINK.git
 * cd DEDSEC_STARLINK
 * pip install --upgrade -r requirements.txt
+* chmod +x dedsec_starlink
 * ./dedsec_starlink
 
 ### TESTED ON FOLLOWING:-
